@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vicente Balmaceda | HR + Dev Portfolio</title>
+  <meta name="description" content="Portafolio profesional de Vicente Balmaceda, con foco en Recursos Humanos, Desarrollo Organizacional, MBA y soluciones digitales aplicadas al negocio." />
+  <link rel="icon" type="image/x-icon" href="./VB-icon.png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              dark: '#0f172a',
+              primary: '#1d4ed8',
+              soft: '#e0e7ff',
+              accent: '#0f766e'
+            }
+          },
+          boxShadow: {
+            soft: '0 20px 45px rgba(15, 23, 42, 0.08)'
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; }
+    .reveal { opacity: 0; transform: translateY(24px); transition: all .7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .glass { backdrop-filter: blur(12px); background: rgba(255,255,255,.78); }
+    .grid-pattern {
+      background-image:
+        linear-gradient(rgba(148, 163, 184, 0.12) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(148, 163, 184, 0.12) 1px, transparent 1px);
+      background-size: 42px 42px;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+  <header class="sticky top-0 z-50 border-b border-slate-200/80 bg-white/90 backdrop-blur">
+    <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+      <a href="#inicio" class="text-sm font-bold tracking-[0.18em] text-slate-900 uppercase">Vicente Balmaceda</a>
+      <nav class="hidden gap-6 text-sm font-medium text-slate-600 md:flex">
+        <a href="#sobre-mi" class="transition hover:text-blue-700">Sobre mí</a>
+        <a href="#valor" class="transition hover:text-blue-700">Valor diferencial</a>
+        <a href="#servicios" class="transition hover:text-blue-700">Lo que puedo hacer</a>
+        <a href="#skills" class="transition hover:text-blue-700">Skills</a>
+        <a href="#contacto" class="transition hover:text-blue-700">Contacto</a>
+      </nav>
+      <button id="menuBtn" class="rounded-xl border border-slate-300 px-3 py-2 text-sm font-semibold md:hidden">Menú</button>
+    </div>
+    <div id="mobileMenu" class="hidden border-t border-slate-200 bg-white px-6 py-4 md:hidden">
+      <div class="flex flex-col gap-3 text-sm font-medium text-slate-600">
+        <a href="#sobre-mi">Sobre mí</a>
+        <a href="#valor">Valor diferencial</a>
+        <a href="#servicios">Lo que puedo hacer</a>
+        <a href="#skills">Skills</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="inicio">
+    <section class="relative overflow-hidden bg-white">
+      <div class="absolute inset-0 grid-pattern"></div>
+      <div class="absolute -left-16 top-16 h-52 w-52 rounded-full bg-blue-200/40 blur-3xl"></div>
+      <div class="absolute right-0 top-0 h-72 w-72 rounded-full bg-teal-200/40 blur-3xl"></div>
+
+      <div class="relative mx-auto grid max-w-6xl gap-12 px-6 py-16 md:grid-cols-[1.35fr_.9fr] md:py-24">
+        <div class="flex flex-col justify-center reveal">
+          <span class="mb-5 inline-flex w-fit items-center rounded-full border border-blue-200 bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-800">
+            HR + Desarrollo Organizacional + Soluciones Digitales
+          </span>
+          <h1 class="max-w-3xl text-4xl font-extrabold leading-tight text-slate-900 md:text-6xl">
+            Conecto personas, negocio y tecnología para crear soluciones con impacto real.
+          </h1>
+          <p class="mt-6 max-w-2xl text-lg leading-8 text-slate-600">
+            Soy Vicente Balmaceda. Mi foco principal está en Recursos Humanos y Desarrollo Organizacional, con una mirada complementaria en programación y un enfoque de negocio apoyado por un MBA. Esta combinación me permite entender la necesidad humana, traducirla a una solución práctica y llevarla a la ejecución sin depender completamente de terceros.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-4">
+            <a href="#valor" class="rounded-2xl bg-slate-900 px-6 py-3 text-sm font-semibold text-white shadow-soft transition hover:-translate-y-0.5 hover:bg-slate-800">Ver mi propuesta de valor</a>
+            <a href="https://www.linkedin.com/in/vicente-balmaceda-e-355888119/" target="_blank" rel="noopener noreferrer" class="rounded-2xl border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-900">Ver LinkedIn</a>
+          </div>
+          <div class="mt-10 grid gap-4 sm:grid-cols-3">
+            <div class="rounded-2xl border border-slate-200 bg-white p-4 shadow-soft">
+              <p class="text-2xl font-extrabold text-slate-900">HR</p>
+              <p class="mt-1 text-sm text-slate-600">Experiencia principal en personas, comunicación interna, capacitación y DO.</p>
+            </div>
+            <div class="rounded-2xl border border-slate-200 bg-white p-4 shadow-soft">
+              <p class="text-2xl font-extrabold text-slate-900">Dev</p>
+              <p class="mt-1 text-sm text-slate-600">Capacidad para construir soluciones web, prototipos, automatizaciones e integraciones.</p>
+            </div>
+            <div class="rounded-2xl border border-slate-200 bg-white p-4 shadow-soft">
+              <p class="text-2xl font-extrabold text-slate-900">MBA</p>
+              <p class="mt-1 text-sm text-slate-600">Visión de negocio para priorizar impacto, eficiencia y escalabilidad.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal flex items-center justify-center">
+          <div class="glass w-full max-w-md rounded-[2rem] border border-white/80 p-6 shadow-soft">
+            <div class="flex flex-col items-center text-center">
+              <img src="foto-vicente.jpg" alt="Foto de Vicente Balmaceda" class="h-36 w-36 rounded-full object-cover ring-4 ring-white shadow-lg" />
+              <h2 class="mt-5 text-3xl font-bold text-slate-900">Vicente Balmaceda</h2>
+              <p class="mt-2 text-sm font-semibold uppercase tracking-[0.22em] text-blue-700">HR + Desarrollo Organizacional + Soluciones Digitales</p>
+              <p class="mt-5 text-base leading-7 text-slate-600">
+                Profesional que une visión humana, criterio de negocio y ejecución digital para resolver problemas de forma ágil, moderna y cercana al usuario interno.
+              </p>
+            </div>
+            <div class="mt-8 grid gap-3">
+              <div class="rounded-2xl bg-slate-100 p-4 text-left">
+                <p class="text-xs font-bold uppercase tracking-[0.18em] text-slate-500">Enfoque</p>
+                <p class="mt-1 font-semibold text-slate-800">Hacer que las ideas bajen a tierra y se conviertan en herramientas útiles.</p>
+              </div>
+              <div class="rounded-2xl bg-blue-50 p-4 text-left">
+                <p class="text-xs font-bold uppercase tracking-[0.18em] text-blue-700">Diferencial</p>
+                <p class="mt-1 font-semibold text-slate-800">No solo detecto necesidades: también puedo ayudar a construir la solución.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="sobre-mi" class="mx-auto max-w-6xl px-6 py-16 md:py-24">
+      <div class="mb-12 reveal max-w-3xl">
+        <p class="text-sm font-bold uppercase tracking-[0.22em] text-blue-700">Sobre mí</p>
+        <h2 class="mt-3 text-3xl font-extrabold text-slate-900 md:text-4xl">Una mirada profesional que conecta personas, procesos y tecnología</h2>
+        <p class="mt-5 text-lg leading-8 text-slate-600">
+          Mi trayectoria se ha desarrollado principalmente en Recursos Humanos, Desarrollo Organizacional, capacitación y comunicaciones internas. A esto se suma mi interés y experiencia en desarrollo web, automatización e integración de herramientas, lo que me permite aportar desde un lugar poco común: entender muy bien el negocio y al mismo tiempo participar en la construcción de soluciones digitales.
+        </p>
+      </div>
+
+      <div class="grid gap-6 md:grid-cols-3">
+        <article class="reveal rounded-3xl bg-white p-7 shadow-soft ring-1 ring-slate-200">
+          <div class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-50 text-blue-700">01</div>
+          <h3 class="text-xl font-bold text-slate-900">Recursos Humanos como base</h3>
+          <p class="mt-3 leading-7 text-slate-600">
+            Mi fortaleza principal está en RR.HH. Comprendo las dinámicas de personas, cultura, liderazgo, formación, experiencia del colaborador y necesidades internas del negocio.
+          </p>
+        </article>
+        <article class="reveal rounded-3xl bg-white p-7 shadow-soft ring-1 ring-slate-200">
+          <div class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-teal-50 text-teal-700">02</div>
+          <h3 class="text-xl font-bold text-slate-900">Programación como acelerador</h3>
+          <p class="mt-3 leading-7 text-slate-600">
+            La programación me permite pasar de la idea a algo tangible: páginas, paneles, prototipos, automatizaciones, formularios, integraciones con API y soluciones internas que ahorran tiempo y reducen dependencia externa.
+          </p>
+        </article>
+        <article class="reveal rounded-3xl bg-white p-7 shadow-soft ring-1 ring-slate-200">
+          <div class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-50 text-amber-700">03</div>
+          <h3 class="text-xl font-bold text-slate-900">MBA como visión estratégica</h3>
+          <p class="mt-3 leading-7 text-slate-600">
+            El componente de negocio me ayuda a priorizar mejor, evaluar impacto, ordenar iniciativas y pensar soluciones que no solo se vean bien, sino que realmente aporten valor a la organización.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="valor" class="bg-slate-900 text-white">
+      <div class="mx-auto max-w-6xl px-6 py-16 md:py-24">
+        <div class="grid gap-10 md:grid-cols-[1.1fr_.9fr]">
+          <div class="reveal">
+            <p class="text-sm font-bold uppercase tracking-[0.22em] text-blue-300">Valor diferencial</p>
+            <h2 class="mt-3 text-3xl font-extrabold md:text-4xl">Por qué la combinación de HR + programación es un gran aporte</h2>
+            <div class="mt-6 space-y-5 text-lg leading-8 text-slate-300">
+              <p>
+                En muchas organizaciones, las necesidades de RR.HH. se identifican muy bien, pero cuesta convertirlas en soluciones concretas porque hay que depender de proveedores externos o del área TI para casi todo. Ahí es donde esta combinación se vuelve especialmente valiosa.
+              </p>
+              <p>
+                Tener una base sólida en HR permite comprender el problema real: qué necesita el colaborador, qué busca el líder, qué dato falta, qué proceso es lento, qué comunicación no está llegando o qué experiencia se puede mejorar.
+              </p>
+              <p>
+                Al sumar programación, integración con API y capacidad de prototipado, es posible transformar esa necesidad en una solución más rápida y práctica: paneles, sitios internos, automatizaciones, formularios, visualización de datos, integraciones o herramientas de apoyo para el negocio.
+              </p>
+              <p>
+                El resultado es una forma de trabajo más ágil, menos dependiente y más conectada con la realidad del usuario interno. No se trata de reemplazar a TI, sino de aportar una capa adicional de ejecución, entendiendo tanto el lenguaje del negocio como el lenguaje de la tecnología.
+              </p>
+            </div>
+          </div>
+          <div class="reveal rounded-[2rem] border border-white/10 bg-white/5 p-8 shadow-soft">
+            <h3 class="text-2xl font-bold">Lo que esta combinación permite hacer</h3>
+            <div class="mt-6 space-y-4">
+              <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+                <p class="font-semibold">Detectar una necesidad real</p>
+                <p class="mt-1 text-sm leading-6 text-slate-300">Desde RR.HH., cultura, capacitación, experiencia o procesos internos.</p>
+              </div>
+              <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+                <p class="font-semibold">Diseñar una solución útil</p>
+                <p class="mt-1 text-sm leading-6 text-slate-300">Pensada para el usuario, simple de usar y alineada con el negocio.</p>
+              </div>
+              <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+                <p class="font-semibold">Construir sin depender completamente de terceros</p>
+                <p class="mt-1 text-sm leading-6 text-slate-300">Con prototipos, webs internas, automatizaciones, paneles o integraciones.</p>
+              </div>
+              <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+                <p class="font-semibold">Aportar rapidez y criterio</p>
+                <p class="mt-1 text-sm leading-6 text-slate-300">Priorizando impacto, experiencia de usuario y viabilidad operativa.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="servicios" class="mx-auto max-w-6xl px-6 py-16 md:py-24">
+      <div class="reveal max-w-3xl">
+        <p class="text-sm font-bold uppercase tracking-[0.22em] text-blue-700">Lo que puedo hacer</p>
+        <h2 class="mt-3 text-3xl font-extrabold text-slate-900 md:text-4xl">Áreas donde puedo aportar valor</h2>
+        <p class="mt-5 text-lg leading-8 text-slate-600">
+          Mi aporte está en unir visión humana, criterio organizacional y capacidad de ejecución digital para resolver necesidades concretas.
+        </p>
+      </div>
+
+      <div class="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+        <article class="reveal rounded-3xl border border-slate-200 bg-white p-6 shadow-soft">
+          <h3 class="text-xl font-bold text-slate-900">HR digital</h3>
+          <p class="mt-3 leading-7 text-slate-600">Creación de iniciativas, herramientas y experiencias digitales para mejorar procesos internos, comunicación y formación.</p>
+        </article>
+        <article class="reveal rounded-3xl border border-slate-200 bg-white p-6 shadow-soft">
+          <h3 class="text-xl font-bold text-slate-900">Automatización e integración</h3>
+          <p class="mt-3 leading-7 text-slate-600">Uso de APIs, formularios, paneles y flujos simples para ahorrar tiempo y conectar información clave.</p>
+        </article>
+        <article class="reveal rounded-3xl border border-slate-200 bg-white p-6 shadow-soft">
+          <h3 class="text-xl font-bold text-slate-900">Comunicación y experiencia</h3>
+          <p class="mt-3 leading-7 text-slate-600">Diseño de contenidos, páginas internas, newsletters y experiencias más claras y cercanas para los equipos.</p>
+        </article>
+        <article class="reveal rounded-3xl border border-slate-200 bg-white p-6 shadow-soft">
+          <h3 class="text-xl font-bold text-slate-900">Prototipado de soluciones</h3>
+          <p class="mt-3 leading-7 text-slate-600">Capacidad para levantar ideas rápido, probarlas y mostrar valor antes de escalar una iniciativa más grande.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="skills" class="bg-white">
+      <div class="mx-auto max-w-6xl px-6 py-16 md:py-24">
+        <div class="reveal flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div class="max-w-3xl">
+            <p class="text-sm font-bold uppercase tracking-[0.22em] text-blue-700">Skills</p>
+            <h2 class="mt-3 text-3xl font-extrabold text-slate-900 md:text-4xl">Conocimientos y capacidades que potencian mi perfil</h2>
+          </div>
+          <div class="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-600">
+            Perfil híbrido con foco principal en RR.HH.
+          </div>
+        </div>
+
+        <div class="mt-10 grid gap-6 lg:grid-cols-3">
+          <div class="reveal rounded-3xl border border-slate-200 bg-slate-50 p-6">
+            <h3 class="text-xl font-bold text-slate-900">Recursos Humanos</h3>
+            <ul class="mt-4 space-y-3 text-slate-600">
+              <li>• Desarrollo organizacional</li>
+              <li>• Capacitación y aprendizaje</li>
+              <li>• Comunicación interna</li>
+              <li>• Cultura y experiencia del colaborador</li>
+              <li>• Procesos y mejora interna</li>
+            </ul>
+          </div>
+          <div class="reveal rounded-3xl border border-slate-200 bg-slate-50 p-6">
+            <h3 class="text-xl font-bold text-slate-900">Tecnología y construcción</h3>
+            <ul class="mt-4 space-y-3 text-slate-600">
+              <li>• HTML, Tailwind CSS y JavaScript</li>
+              <li>• Desarrollo de páginas y portales internos</li>
+              <li>• Consumo e integración de API</li>
+              <li>• Automatización de soluciones simples</li>
+              <li>• Prototipos funcionales y dashboards</li>
+            </ul>
+          </div>
+          <div class="reveal rounded-3xl border border-slate-200 bg-slate-50 p-6">
+            <h3 class="text-xl font-bold text-slate-900">Negocio y gestión</h3>
+            <ul class="mt-4 space-y-3 text-slate-600">
+              <li>• Visión estratégica</li>
+              <li>• Priorización por impacto</li>
+              <li>• Enfoque en eficiencia</li>
+              <li>• Traducción entre áreas</li>
+              <li>• Ejecución con mirada integral</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-6xl px-6 py-16 md:py-24">
+      <div class="reveal rounded-[2rem] bg-gradient-to-r from-slate-900 to-blue-900 p-8 text-white md:p-12">
+        <div class="grid gap-8 md:grid-cols-[1.1fr_.9fr] md:items-center">
+          <div>
+            <p class="text-sm font-bold uppercase tracking-[0.22em] text-blue-200">Resumen profesional</p>
+            <h2 class="mt-3 text-3xl font-extrabold md:text-4xl">Mi propuesta es simple: entender el problema y ayudar a construir la solución</h2>
+            <p class="mt-5 max-w-3xl text-lg leading-8 text-slate-200">
+              Mi perfil combina una base fuerte en Recursos Humanos con herramientas de desarrollo y una visión de negocio. Eso me permite aportar en iniciativas donde se necesita criterio humano, comprensión organizacional y capacidad práctica para hacer que las cosas avancen.
+            </p>
+          </div>
+          <div class="rounded-[1.75rem] border border-white/10 bg-white/10 p-6">
+            <p class="text-lg font-bold">Ideal para roles o proyectos donde se necesite:</p>
+            <ul class="mt-4 space-y-3 text-slate-200">
+              <li>• Unir negocio, personas y tecnología</li>
+              <li>• Diseñar soluciones internas con foco usuario</li>
+              <li>• Levantar iniciativas sin tanta fricción</li>
+              <li>• Crear herramientas sin depender siempre de externos</li>
+              <li>• Aportar una mirada transversal y ejecutiva</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contacto" class="border-t border-slate-200 bg-white">
+    <div class="mx-auto max-w-6xl px-6 py-10">
+      <div class="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+        <div>
+          <h2 class="text-2xl font-bold text-slate-900">Vicente Balmaceda</h2>
+          <p class="mt-2 max-w-2xl leading-7 text-slate-600">Profesional de HR con mirada digital, capacidad de ejecución y enfoque de negocio. Una combinación pensada para crear soluciones útiles, modernas y cercanas a la realidad de las organizaciones.</p>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <a href="https://www.linkedin.com/in/vicente-balmaceda-e-355888119/" target="_blank" rel="noopener noreferrer" class="rounded-2xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800">LinkedIn</a>
+          <a href="#inicio" class="rounded-2xl border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-900">Volver arriba</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Los del D Awards</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <script src="./data.js"></script>
+  <style>
+    :root{--bg:#070816;--panel:rgba(255,255,255,.09);--panel2:rgba(255,255,255,.16);--line:rgba(255,255,255,.15);--text:#f8fafc;--muted:#b8c0d9;--gold:#ffe15d;--cyan:#39e8ff;--pink:#ff55c8;--green:#5cf5a2;--purple:#a78bfa}
+    *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;background:radial-gradient(circle at 16% 15%,rgba(167,139,250,.34),transparent 30%),radial-gradient(circle at 80% 0%,rgba(57,232,255,.24),transparent 30%),radial-gradient(circle at 75% 86%,rgba(255,85,200,.20),transparent 30%),linear-gradient(180deg,#070816 0%,#17102a 72%,#250d2e 100%);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overflow-x:hidden}
+    body:before{content:"";position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:44px 44px;mask-image:radial-gradient(circle at center,#000 0%,transparent 80%);z-index:-1}
+    .glass{background:linear-gradient(135deg,rgba(255,255,255,.14),rgba(255,255,255,.055));border:1px solid var(--line);box-shadow:0 24px 90px rgba(0,0,0,.38);backdrop-filter:blur(18px)}
+    .neon{text-shadow:0 0 20px rgba(57,232,255,.55),0 0 46px rgba(255,85,200,.32)}
+    .btn{transition:transform .18s ease,filter .18s ease,box-shadow .18s ease}.btn:hover{transform:translateY(-2px) scale(1.01);filter:brightness(1.08)}.btn:active{transform:translateY(1px) scale(.99)}
+    .ticker{animation:ticker 22s linear infinite}@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    .progress-bar{width:0%;transition:width .45s ease}.screen-flash{position:fixed;inset:0;pointer-events:none;background:radial-gradient(circle,rgba(255,255,255,.34),transparent 62%);opacity:0;z-index:70}.screen-flash.fire{animation:flash .62s ease}@keyframes flash{0%{opacity:0}25%{opacity:1}100%{opacity:0}}
+    .stage-panel{animation:enter .55s cubic-bezier(.2,.9,.2,1) both}@keyframes enter{0%{opacity:0;transform:translateY(26px) scale(.98);filter:blur(8px)}100%{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}
+    .chip{background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.14);box-shadow:inset 0 1px 0 rgba(255,255,255,.14)}
+    .nominee-card{animation:nominee .45s ease both}.nominee-card:nth-child(2n){animation-delay:.04s}.nominee-card:nth-child(3n){animation-delay:.08s}@keyframes nominee{from{opacity:0;transform:translateY(18px) rotate(-1deg)}to{opacity:1;transform:translateY(0) rotate(0)}}
+    .reveal-row{opacity:0;transform:translateX(-18px) scale(.98)}.reveal-row.show{animation:row .45s ease forwards}@keyframes row{to{opacity:1;transform:translateX(0) scale(1)}}
+    .photo-slot{transform-origin:center;animation:floaty 4s ease-in-out infinite}.photo-slot:nth-child(2){animation-delay:.45s}.photo-slot:nth-child(3){animation-delay:.9s}@keyframes floaty{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-9px) rotate(1deg)}}
+    .winner-card{animation:winner .85s cubic-bezier(.18,.89,.32,1.28) both}@keyframes winner{0%{opacity:.2;filter:blur(12px);transform:scale(.86) rotate(-2deg)}70%{opacity:1;filter:blur(0);transform:scale(1.05) rotate(1deg)}100%{opacity:1;filter:blur(0);transform:scale(1) rotate(0)}}
+    .shine{position:relative;overflow:hidden}.shine:after{content:"";position:absolute;top:-60%;left:-55%;width:35%;height:220%;transform:rotate(25deg);background:linear-gradient(90deg,transparent,rgba(255,255,255,.42),transparent);animation:shine 3.2s infinite}@keyframes shine{0%{left:-55%;opacity:0}18%{opacity:.8}40%{left:125%;opacity:0}100%{left:125%;opacity:0}}
+    .ad-pop{animation:adIn .55s cubic-bezier(.2,.9,.2,1) both}@keyframes adIn{0%{opacity:0;transform:translateY(38px) scale(.88) rotate(-2deg)}70%{opacity:1;transform:translateY(-8px) scale(1.02) rotate(1deg)}100%{opacity:1;transform:translateY(0) scale(1) rotate(0)}}
+    .wiggle{animation:wiggle 1.15s ease-in-out infinite}@keyframes wiggle{0%,100%{transform:rotate(-1deg)}50%{transform:rotate(1deg)}}
+
+    .stage-fit{height:calc(100vh - 172px);min-height:0}
+    .stage-inner{height:100%;min-height:0;overflow:hidden}
+    .scroll-soft{overflow:auto;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.32) rgba(255,255,255,.07)}
+    .scroll-soft::-webkit-scrollbar{width:8px}.scroll-soft::-webkit-scrollbar-track{background:rgba(255,255,255,.06);border-radius:999px}.scroll-soft::-webkit-scrollbar-thumb{background:rgba(255,255,255,.28);border-radius:999px}
+    @media (max-height:760px){.stage-fit{height:calc(100vh - 142px)}.compact-hide{display:none}.compact-title{font-size:clamp(1.65rem,4.8vw,3.3rem)!important}.compact-card{padding:1rem!important}.compact-row{padding:.72rem!important}.compact-gap{gap:.65rem!important}.compact-mt{margin-top:.75rem!important}}
+    @media (max-width:768px){.stage-fit{height:auto;min-height:calc(100vh - 178px)}body:not(.presentation-mode){overflow-y:auto}.presentation-mode{overflow-y:auto}}
+    .presentation-mode{overflow:hidden}
+  </style>
+</head>
+<body>
+  <div id="flash" class="screen-flash"></div>
+  <div id="adLayer" class="fixed inset-0 hidden z-[80] items-center justify-center bg-black/55 p-4 backdrop-blur-sm"></div>
+  <div id="finalLayer" class="fixed inset-0 hidden z-[90] items-center justify-center bg-black/65 p-4 backdrop-blur-md"></div>
+
+
+
+  <!-- ============================================================
+       FOTOS EDITABLES DESDE HTML
+       Para cambiar una foto, edita solo el atributo src="...".
+       También puedes reemplazar el archivo dentro de assets/fotos/.
+       Mantén 3 imágenes por pregunta para conservar el diseño.
+       Ejemplo: src="assets/fotos/pregunta-01/mi-foto.jpg"
+       ============================================================ -->
+  <section id="editablePhotos" hidden>
+    <div data-question-id="1">
+      <img src="assets/fotos/pregunta-01/viejaAboga.jpeg" alt="Pregunta 01 foto 1">
+      <img src="assets/fotos/pregunta-01/ViejaSilva.jpg" alt="Pregunta 01 foto 2">
+      <img src="assets/fotos/pregunta-01/viejaArteaga.png" alt="Pregunta 01 foto 3">
+    </div>
+    <div data-question-id="2">
+      <img src="assets/fotos/pregunta-02/wawa3.png" alt="Pregunta 02 foto 1">
+      <img src="assets/fotos/pregunta-02/TeuberDetonao.jpeg" alt="Pregunta 02 foto 2">
+      <img src="assets/fotos/pregunta-02/hoffDetonao.png" alt="Pregunta 02 foto 3">
+    </div>
+    <div data-question-id="3">
+      <img src="assets/fotos/pregunta-03/DonetchPiante.png" alt="Pregunta 03 foto 1">
+      <img src="assets/fotos/pregunta-03/WawaDetonao.png" alt="Pregunta 03 foto 2">
+      <img src="assets/fotos/pregunta-03/ZamoraDetonao1.png" alt="Pregunta 03 foto 3">
+    </div>
+    <div data-question-id="4">
+      <img src="assets/fotos/pregunta-04/WawaCarcel.png" alt="Pregunta 04 foto 1">
+      <img src="assets/fotos/pregunta-04/FrancoCarcel.png" alt="Pregunta 04 foto 2">
+      <img src="assets/fotos/pregunta-04/HoffCarcel.png" alt="Pregunta 04 foto 3">
+    </div>
+    <div data-question-id="5">
+      <img src="assets/fotos/pregunta-05/teuber2.png" alt="Pregunta 05 foto 1">
+      <img src="assets/fotos/pregunta-05/WawaDetonao.png" alt="Pregunta 05 foto 2">
+      <img src="assets/fotos/pregunta-05/ZamoraDetonao1.png" alt="Pregunta 05 foto 3">
+    </div>
+    <div data-question-id="6">
+      <img src="assets/fotos/pregunta-06/zamoraHecho.png" alt="Pregunta 06 foto 1">
+      <img src="assets/fotos/pregunta-06/medinaHech.png" alt="Pregunta 06 foto 2">
+      <img src="assets/fotos/pregunta-06/klaus.jpg" alt="Pregunta 06 foto 3">
+    </div>
+    <div data-question-id="7">
+      <img src="assets/fotos/pregunta-07/HermanaPichuMordiendoZamora.jpeg" alt="Pregunta 07 foto 1">
+      <img src="assets/fotos/pregunta-07/hermanaAboga.jpeg" alt="Pregunta 07 foto 2">
+      <img src="assets/fotos/pregunta-07/hermanaPelao2.jpeg" alt="Pregunta 07 foto 3">
+    </div>
+    <div data-question-id="8">
+      <img src="assets/fotos/pregunta-08/donosoFormal.jpg" alt="Pregunta 08 foto 1">
+      <img src="assets/fotos/pregunta-08/CasasFormal2.jpeg" alt="Pregunta 08 foto 2">
+      <img src="assets/fotos/pregunta-08/MatuFormal.jpeg" alt="Pregunta 08 foto 3">
+    </div>
+    <div data-question-id="9">
+      <img src="assets/fotos/pregunta-09/donosoDeg.png" alt="Pregunta 09 foto 1">
+      <img src="assets/fotos/pregunta-09/negro.jpeg" alt="Pregunta 09 foto 2">
+      <img src="assets/fotos/pregunta-09/4.png" alt="Pregunta 09 foto 3">
+    </div>
+    <div data-question-id="10">
+      <img src="assets/fotos/pregunta-10/resz.jpg" alt="Pregunta 10 foto 1">
+      <img src="assets/fotos/pregunta-10/caorsi.png" alt="Pregunta 10 foto 2">
+      <img src="assets/fotos/pregunta-10/aboga3.png" alt="Pregunta 10 foto 3">
+    </div>
+    <div data-question-id="11">
+      <img src="assets/fotos/pregunta-11/klaus.jpg" alt="Pregunta 11 foto 1">
+      <img src="assets/fotos/pregunta-11/amenabar.jpeg" alt="Pregunta 11 foto 2">
+      <img src="assets/fotos/pregunta-11/garcia.jpeg" alt="Pregunta 11 foto 3">
+    </div>
+    <div data-question-id="12">
+      <img src="assets/fotos/pregunta-12/donoso.png" alt="Pregunta 12 foto 1">
+      <img src="assets/fotos/pregunta-12/matu.png" alt="Pregunta 12 foto 2">
+      <img src="assets/fotos/pregunta-12/wawa.jpg" alt="Pregunta 12 foto 3">
+    </div>
+    <div data-question-id="13">
+      <img src="assets/fotos/pregunta-13/donosoSuegra.png" alt="Pregunta 13 foto 1">
+      <img src="assets/fotos/pregunta-13/fdz.png" alt="Pregunta 13 foto 2">
+      <img src="assets/fotos/pregunta-13/hoff.png" alt="Pregunta 13 foto 3">
+    </div>
+    <div data-question-id="14">
+      <img src="assets/fotos/pregunta-14/art 2.jpeg" alt="Pregunta 14 foto 1">
+      <img src="assets/fotos/pregunta-14/rec 2.jpeg" alt="Pregunta 14 foto 2">
+      <img src="assets/fotos/pregunta-14/negro3.jpeg" alt="Pregunta 14 foto 3">
+    </div>
+    <div data-question-id="15">
+      <img src="assets/fotos/pregunta-15/donoso.png" alt="Pregunta 15 foto 1">
+      <img src="assets/fotos/pregunta-15/rai.png" alt="Pregunta 15 foto 2">
+      <img src="assets/fotos/pregunta-15/casas.jpeg" alt="Pregunta 15 foto 3">
+    </div>
+    <div data-question-id="16">
+      <img src="assets/fotos/pregunta-16/matu.jpg" alt="Pregunta 16 foto 1">
+      <img src="assets/fotos/pregunta-16/3.png" alt="Pregunta 16 foto 2">
+      <img src="assets/fotos/pregunta-16/ser.png" alt="Pregunta 16 foto 3">
+    </div>
+  </section>
+
+  <header id="home" class="min-h-screen flex items-center justify-center px-5 py-12 relative">
+    <div class="absolute top-0 left-0 w-full overflow-hidden border-b border-white/10 bg-white/5 backdrop-blur-md">
+      <div id="ticker" class="ticker whitespace-nowrap py-3 text-sm md:text-base text-slate-100/85 font-black"></div>
+    </div>
+    <div class="max-w-6xl mx-auto text-center">
+      <div class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm text-cyan-100 mb-7">
+        <span class="h-2.5 w-2.5 rounded-full bg-emerald-300 animate-pulse"></span>
+        Resultados cargados · <span id="totalResponses"></span> respuestas oficiales
+      </div>
+      <h1 class="neon text-5xl md:text-8xl font-black tracking-tight leading-tight">Los del D<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-200 via-fuchsia-300 to-yellow-200">ENCUESTA</span></h1>
+      <div class="mt-10 flex flex-col sm:flex-row justify-center gap-4">
+        <button onclick="startShow()" class="btn rounded-2xl bg-gradient-to-r from-cyan-400 via-fuchsia-500 to-yellow-300 px-7 py-3 font-black text-slate-950 shadow-2xl shadow-fuchsia-500/20">Empecemos</button>
+        <button onclick="toggleFullscreen()" class="btn rounded-2xl border border-white/15 bg-white/10 px-8 py-4 font-bold text-white">Pantalla completa</button>
+      </div>
+  </header>
+
+  <main id="show" class="hidden h-screen overflow-hidden px-3 py-3 md:px-5 md:py-4">
+    <div class="max-w-7xl mx-auto h-full flex flex-col min-h-0">
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3 mb-3 shrink-0">
+        <div><p class="text-cyan-200 font-bold uppercase tracking-[.3em] text-xs">Ceremonia en vivo</p><h2 class="text-2xl md:text-4xl font-black mt-1">Revelación sin spoilers</h2></div>
+        <div class="glass rounded-2xl px-5 py-4 min-w-[260px]"><div class="flex justify-between text-sm text-slate-300 mb-2"><span>Avance</span><span id="progressText">1/1</span></div><div class="h-3 rounded-full bg-white/10 overflow-hidden"><div id="progressBar" class="progress-bar h-full rounded-full bg-gradient-to-r from-cyan-300 via-fuchsia-400 to-yellow-300"></div></div></div>
+      </div>
+      <section id="stage" class="stage-panel stage-fit min-h-0"></section>
+      <div class="mt-3 flex flex-col md:flex-row justify-center gap-3 shrink-0">
+        <button onclick="goBack()" class="btn rounded-2xl border border-white/15 bg-white/10 px-5 py-3 font-bold">← Volver</button>
+        <button id="advanceBtn" onclick="advance()" class="btn rounded-2xl bg-gradient-to-r from-fuchsia-500 via-cyan-400 to-yellow-300 px-7 py-3 font-black text-slate-950 shadow-2xl shadow-cyan-500/15">Avanzar ✨</button>
+        <button onclick="toggleFullscreen()" class="btn rounded-2xl border border-white/15 bg-white/10 px-5 py-3 font-bold">Pantalla completa</button>
+      </div>
+      <p class="compact-hide text-center text-slate-400 text-xs mt-2">Tip: usa → para avanzar, ← para volver, Enter/Espacio para avanzar y F para pantalla completa.</p>
+    </div>
+  </main>
+
+  <footer id="footer" class="px-5 py-8 text-center text-slate-400 text-sm">Edita las fotos directamente desde el bloque <strong>FOTOS EDITABLES DESDE HTML</strong> en <strong>index.html</strong>.</footer>
+
+<script>
+let current=0, phase=0, revealCount=0, chart=null; // phase: 0 pregunta, 1 nominados, 2 resultados, 3 final
+const palette=["#22d3ee","#f472b6","#fde047","#a78bfa","#34d399","#fb7185","#60a5fa","#f97316","#c084fc","#2dd4bf"];
+const emojiSet=["🥵","👼","🤐","🤡","💀","👺","👹","😈","👽","☠️","🔥"];
+const popupSchedule={1:0,4:1,7:2};
+const shownPopups=new Set();
+
+// Rutas fáciles para reemplazar archivos en Visual Studio Code.
+// Fotos de ganadores: assets/fotos/pregunta-XX/foto-1.png, foto-2.png, foto-3.png
+// Popups: assets/popups/popup-1.avif, popup-2.png y popup-video.mp4
+const POPUP_ASSETS={
+  image1:'assets/popups/popup-1.jpeg',
+  image2:'assets/popups/popup-2.png',
+  video:'assets/popups/popup-video.mp4'
+};
+
+function init(){
+  document.getElementById('totalResponses').textContent=SURVEY_DATA.responses;
+  document.getElementById('statQuestions').textContent=SURVEY_DATA.questions.length;
+  buildTicker(); updateProgress();
+}
+function buildTicker(){
+  const names=[...new Set(SURVEY_DATA.questions.flatMap(q=>(q.all||q.top).map(x=>x.name)))].slice(0,38);
+  const content=names.map((n,i)=>`${emojiSet[i%emojiSet.length]} ${n}`).join(' &nbsp;&nbsp;&nbsp; ');
+  document.getElementById('ticker').innerHTML=`<span>${content}</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>${content}</span>`;
+}
+function startShow(){document.body.classList.add('presentation-mode');document.getElementById('home').classList.add('hidden');document.getElementById('footer').classList.add('hidden');document.getElementById('show').classList.remove('hidden');current=0;phase=0;revealCount=0;render();fireFlash();}
+function q(){return SURVEY_DATA.questions[current]}
+function nominees(question){return seededShuffle([...(question.all||question.top)], question.id*97+13)}
+function revealOrder(question){return [...(question.all||question.top)].map((x,i)=>({...x,_i:i})).sort((a,b)=>a.votes-b.votes || a._i-b._i)}
+function winners(question){const max=Math.max(...(question.all||question.top).map(x=>x.votes));return (question.all||question.top).filter(x=>x.votes===max)}
+function seededShuffle(arr,seed){let a=[...arr];for(let i=a.length-1;i>0;i--){seed=(seed*9301+49297)%233280;const j=Math.floor((seed/233280)*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function updateProgress(){const total=SURVEY_DATA.questions.length*4;const done=current*4+phase+1;document.getElementById('progressText').textContent=`Pregunta ${current+1}/${SURVEY_DATA.questions.length} · Paso ${phase+1}/4`;document.getElementById('progressBar').style.width=`${Math.min(100,(done/total)*100)}%`;}
+function baseShell(inner){return `<article class="stage-panel glass rounded-[1.6rem] md:rounded-[2rem] p-4 md:p-5 h-full min-h-0 overflow-hidden"><div class="stage-inner">${inner}</div></article>`}
+function headerBlock(label){return `<div class="flex flex-wrap items-center gap-2 mb-3"><span class="chip rounded-full px-3 py-1.5 text-xs font-black text-cyan-100">Pregunta ${current+1}</span><span class="chip rounded-full px-3 py-1.5 text-xs text-slate-200">${label}</span></div><h3 class="compact-title text-2xl md:text-5xl font-black leading-tight neon max-w-6xl">${escapeHtml(q().question)}</h3>`}
+function render(){
+  updateProgress(); if(chart){chart.destroy(); chart=null}
+  const stage=document.getElementById('stage'); stage.innerHTML=''; void stage.offsetWidth;
+  if(phase===0) renderQuestionOnly(stage); if(phase===1) renderNominees(stage); if(phase===2) renderResults(stage); if(phase===3) renderFinal(stage);
+  document.getElementById('advanceBtn').textContent=phase===0?'Mostrar nominados 🎭':phase===1?'Comenzar revelación 👀':phase===2? (revealCount >= (q().all||q().top).length ? 'Mostrar ganador 🏆' : 'Revelar siguiente resultado ⚡') : 'Siguiente pregunta →';
+  maybePopup(); window.scrollTo({top:0,behavior:'smooth'});
+  setTimeout(()=>{const el=document.getElementById('revealList'); if(el) el.scrollTop=el.scrollHeight;},80);
+}
+
+function getPhotosForQuestion(question){
+  const htmlPhotos=[...document.querySelectorAll(`#editablePhotos [data-question-id="${question.id}"] img`)];
+  const fromHtml=htmlPhotos.map(img=>img.getAttribute('src')).filter(Boolean);
+  return (fromHtml.length ? fromHtml : (question.photos||[])).slice(0,3);
+}
+function renderQuestionOnly(stage){
+  stage.innerHTML=baseShell(`<div class="h-full grid lg:grid-cols-[1fr_.45fr] gap-5 items-center"><div>${headerBlock('Sin resultados todavía')}<p class="compact-mt mt-5 text-lg md:text-xl text-slate-300 max-w-3xl"></p></div><div class="glass compact-card rounded-[1.6rem] p-6 text-center wiggle"><p class="mt-3 text-xl md:text-2xl font-black"></p><p class="compact-hide text-slate-300 mt-2"></p></div></div>`);
+}
+function renderNominees(stage){
+  const cards=nominees(q()).map((n,i)=>`<div class="nominee-card rounded-2xl border border-white/12 bg-white/8 p-3 md:p-4 flex items-center gap-3 min-w-0"><div class="text-2xl md:text-3xl shrink-0">${emojiSet[i%emojiSet.length]}</div><div class="font-black text-lg md:text-xl truncate">${escapeHtml(n.name)}</div></div>`).join('');
+  stage.innerHTML=baseShell(`<div class="h-full flex flex-col min-h-0">${headerBlock('Nominados')}<p class="compact-hide mt-3 text-slate-300 text-base">Estos son los nombres que entraron a la pelea. Orden de aparición modo caos elegante.</p><div id="nomineeList" class="scroll-soft compact-mt mt-5 grid sm:grid-cols-2 xl:grid-cols-3 gap-3 pr-1 min-h-0">${cards}</div></div>`);
+}
+function renderResults(stage){
+  const ordered=revealOrder(q()); const visible=ordered.slice(0,revealCount);
+  const rows=ordered.map((item,i)=>{const show=i<revealCount; const maxVotes=Math.max(...ordered.map(x=>x.votes)); const width=Math.max(8,(item.votes/maxVotes)*100); return `<div class="reveal-row ${show?'show':''} compact-row rounded-2xl border border-white/10 bg-black/20 p-3 ${show?'':'hidden'}"><div class="flex justify-between gap-3 items-end mb-1.5"><span class="font-black text-base md:text-xl truncate">${escapeHtml(item.name)}</span><span class="text-slate-200 font-black whitespace-nowrap">${item.votes} voto${item.votes===1?'':'s'}</span></div><div class="h-3 rounded-full bg-white/10 overflow-hidden"><div class="h-full rounded-full" style="width:${width}%;background:linear-gradient(90deg,${palette[i%palette.length]},rgba(255,255,255,.85))"></div></div></div>`}).join('');
+  const pending=ordered.length-revealCount;
+  stage.innerHTML=baseShell(`<div class="h-full grid xl:grid-cols-[1fr_.62fr] gap-4 min-h-0"><div class="flex flex-col min-h-0">${headerBlock('Resultados apareciendo de a poco')}<p class="compact-hide mt-3 text-slate-300 text-base">Van saliendo desde los menos votados hasta llegar al momento incómodo de la verdad.</p><div id="revealList" class="scroll-soft compact-mt mt-4 space-y-2 pr-1 min-h-0 flex-1">${rows}</div>${pending?`<div class="compact-mt mt-3 rounded-2xl border border-dashed border-white/20 bg-white/5 p-3 text-center text-slate-300 font-bold shrink-0">Faltan ${pending} por aparecer 👀</div>`:`<div class="compact-mt mt-3 rounded-2xl border border-yellow-200/30 bg-yellow-200/10 p-3 text-center text-yellow-100 font-black shrink-0">Resultados completos. Ahora sí viene el/la ganador/a 🏆</div>`}</div><aside class="glass compact-card rounded-[1.6rem] p-4 self-stretch hidden lg:flex flex-col min-h-0"><p class="font-black text-lg mb-2">Panel de tensión</p><div class="min-h-0 flex-1"><canvas id="resultChart"></canvas></div><p class="compact-hide mt-2 text-xs text-slate-400">El gráfico se arma sólo con lo revelado hasta ahora.</p></aside></div>`);
+  drawVisibleChart(visible);
+}
+function renderFinal(stage){
+  const win=winners(q()); const all=q().all||q().top;
+  const winnerHtml=win.map((w,i)=>`<div class="winner-card shine rounded-[1.6rem] border border-yellow-100/25 bg-gradient-to-br from-yellow-300/25 via-fuchsia-400/15 to-cyan-300/20 p-4 md:p-5"><p class="text-xs uppercase tracking-[.28em] text-yellow-100/90 font-black">Ganador/a oficial</p><div class="mt-2 text-4xl md:text-6xl font-black neon">${escapeHtml(w.name)}</div><div class="mt-3 flex flex-wrap items-end gap-3"><div class="text-3xl md:text-4xl font-black text-yellow-200">${w.pct}%</div><div class="text-slate-200 text-base pb-1">${w.votes} votos de ${q().total}</div></div></div>`).join('');
+  const photos=getPhotosForQuestion(q()).map((src,i)=>`<figure class="photo-slot rounded-[1.2rem] overflow-hidden bg-white/10 border border-white/15 aspect-[4/3] md:aspect-[3/4] relative"><img src="${src}" class="h-full w-full object-cover opacity-90" alt="Foto editable ${i+1}" onerror="this.style.display='none';this.parentElement.querySelector('.missing-photo')?.classList.remove('hidden')"><div class="missing-photo hidden h-full w-full place-items-center text-center text-xs text-slate-300 p-2">Revisa la ruta de esta foto en index.html</div><figcaption class="absolute bottom-0 inset-x-0 bg-black/50 text-xs p-1.5 text-center">Foto ${i+1}</figcaption></figure>`).join('');
+  const list=[...all].map((x,i)=>`<div class="flex items-center justify-between gap-3 rounded-xl bg-white/7 border border-white/10 px-3 py-2"><span class="font-bold truncate">${escapeHtml(x.name)}</span><span class="text-slate-200 whitespace-nowrap text-sm">${x.votes} votos · ${x.pct}%</span></div>`).join('');
+  stage.innerHTML=baseShell(`<div class="h-full grid xl:grid-cols-[1.05fr_.65fr] gap-4 min-h-0"><div class="flex flex-col min-h-0">${headerBlock(win.length>1?'Ganadores por empate':'Ganador/a')}<div class="compact-mt mt-5 space-y-3 shrink-0">${winnerHtml}</div><div class="compact-mt mt-5 grid grid-cols-3 gap-3 min-h-0">${photos}</div></div><aside class="space-y-3 min-h-0 flex flex-col"><div class="glass compact-card rounded-[1.6rem] p-4 min-h-0 flex flex-col"><p class="font-black text-lg mb-3 shrink-0">Detalle final</p><div class="scroll-soft space-y-2 pr-1 min-h-0 flex-1">${list}</div></div><div class="compact-hide rounded-[1.6rem] border border-white/10 bg-black/20 p-4 text-center shrink-0"><div class="text-5xl">${win.length>1?'🤝':'🏆'}</div><p class="mt-2 text-lg font-black">${win.length>1?'Empate histórico.':'Ganador oficial.'}</p></div></aside></div>`);
+  fireConfetti(); fireFlash();
+}
+function drawVisibleChart(visible){
+  const canvas=document.getElementById('resultChart'); if(!canvas) return;
+  chart=new Chart(canvas,{type:'bar',data:{labels:visible.map(x=>x.name),datasets:[{data:visible.map(x=>x.votes),borderWidth:0,borderRadius:14,backgroundColor:visible.map((_,i)=>palette[i%palette.length])}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,animation:{duration:650,easing:'easeOutQuart'},plugins:{legend:{display:false},tooltip:{callbacks:{label:(ctx)=>`${ctx.raw} votos`}}},scales:{x:{beginAtZero:true,ticks:{color:'rgba(255,255,255,.72)',precision:0},grid:{color:'rgba(255,255,255,.08)'}},y:{ticks:{color:'rgba(255,255,255,.84)',font:{weight:'bold'}},grid:{display:false}}}}});
+}
+function advance(){
+  if(phase===2){const total=(q().all||q().top).length; if(revealCount<total){revealCount++; render(); if(revealCount===total) fireFlash(); return;} phase=3; render(); return;}
+  if(phase<3){phase++; if(phase===2) revealCount=0; render(); return;}
+  if(current<SURVEY_DATA.questions.length-1){current++; phase=0; revealCount=0; render(); return;}
+  showFinalModal();
+}
+function goBack(){
+  if(phase===2 && revealCount>0){revealCount--; render(); return;}
+  if(phase>0){phase--; render(); return;}
+  if(current>0){current--; phase=3; revealCount=(q().all||q().top).length; render();}
+}
+function maybePopup(){
+  const key=`${current}-${phase}`; if(shownPopups.has(key)) return;
+  if(phase===0 && popupSchedule[current]!==undefined){shownPopups.add(key); setTimeout(()=>showAd(popupSchedule[current]),420);}
+}
+function showAd(type){
+  const layer=document.getElementById('adLayer'); const isVideo=type===1;
+  const titles=['Publicidad MUY necesaria','Momento comercial obligatorio','Alerta del comité organizador'];
+  const texts=['Publicidad MUY necesaria','Respira. Toma agua. No alegues si sales nominado. La estadística no perdona.','Si aparece tu nombre, actúa sorprendido. Aunque hayas votado por ti.'];
+  layer.className='fixed inset-0 z-[80] flex items-center justify-center bg-black/55 p-4 backdrop-blur-sm';
+  layer.innerHTML=`<div class="ad-pop glass max-w-md w-full rounded-[2rem] p-4 relative border-fuchsia-200/25"><div class="absolute -top-3 -right-3 rounded-full bg-red-500 text-white text-xs font-black px-3 py-1 shadow-xl">ANUNCIO</div><button onclick="closeAd()" class="absolute top-4 right-4 rounded-full bg-white/10 hover:bg-white/20 h-9 w-9 font-black">×</button><p class="text-xs uppercase tracking-[.28em] text-fuchsia-200 font-black">${titles[type]}</p><div class="mt-4 rounded-[1.5rem] overflow-hidden border border-white/15 bg-black/25">${isVideo?`<video src="${POPUP_ASSETS.video}" controls autoplay muted playsinline class="w-full max-h-[44vh] object-cover"></video>`:`<img src="${type===2?POPUP_ASSETS.image2:POPUP_ASSETS.image1}" class="w-full max-h-[44vh] object-contain bg-white/5" alt="popup">`}</div><p class="mt-4 text-xl font-black">${texts[type]}</p><button onclick="closeAd()" class="btn mt-5 w-full rounded-2xl bg-gradient-to-r from-cyan-300 to-fuchsia-400 px-5 py-3 text-slate-950 font-black">Cerrar esta joya publicitaria</button></div>`;
+}
+function closeAd(){const layer=document.getElementById('adLayer'); layer.classList.add('hidden'); layer.classList.remove('flex'); layer.innerHTML='';}
+function showFinalModal(){
+  fireConfetti(true);
+  const layer=document.getElementById('finalLayer'); layer.className='fixed inset-0 z-[90] flex items-center justify-center bg-black/65 p-4 backdrop-blur-md';
+  layer.innerHTML=`<div class="winner-card glass max-w-xl w-full rounded-[2.5rem] p-8 text-center"><div class="text-7xl"></div><h2 class="mt-4 text-4xl md:text-5xl font-black neon">Fin</h2><p class="mt-5 text-2xl text-slate-100 font-black"></p><p class="mt-3 text-slate-300"></p><button onclick="closeFinal()" class="btn mt-7 rounded-2xl bg-gradient-to-r from-yellow-300 via-fuchsia-400 to-cyan-300 px-7 py-3 font-black text-slate-950">Cerrar</button></div>`;
+}
+function closeFinal(){const layer=document.getElementById('finalLayer');layer.classList.add('hidden');layer.classList.remove('flex');layer.innerHTML='';}
+function fireConfetti(big=false){const duration=big?2100:1000;const end=Date.now()+duration;(function frame(){confetti({particleCount:big?8:4,angle:60,spread:75,origin:{x:0}});confetti({particleCount:big?8:4,angle:120,spread:75,origin:{x:1}});if(Date.now()<end)requestAnimationFrame(frame)})()}
+function fireFlash(){const flash=document.getElementById('flash');flash.classList.remove('fire');void flash.offsetWidth;flash.classList.add('fire')}
+function toggleFullscreen(){if(!document.fullscreenElement)document.documentElement.requestFullscreen?.();else document.exitFullscreen?.()}
+function escapeHtml(str){return String(str).replace(/[&<>'"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[m]))}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='Enter'||e.key===' ')advance();if(e.key==='ArrowLeft')goBack();if(e.key.toLowerCase()==='f')toggleFullscreen();if(e.key==='Escape'){closeAd();closeFinal();}});
+window.addEventListener('DOMContentLoaded',init);
+</script>
+</body>
+</html>
