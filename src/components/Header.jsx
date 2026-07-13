@@ -29,7 +29,8 @@ export default function Header({ onHome }) {
     <header className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${scrolled ? 'border-b border-white/10 bg-navy/88 shadow-2xl shadow-black/20 backdrop-blur-xl' : 'bg-transparent'}`}>
       <div className="container-pro flex items-center justify-between py-4">
         <button onClick={() => handleNav('#inicio')} className="flex items-center gap-3 text-left" aria-label="Ir al inicio">
-          <img src="./VB-icon.png" alt="Logo VB" className="h-11 w-11 rounded-2xl object-cover shadow-blueglow"/>
+          <img src="/assets/VB-icon.png" alt="Logo VB" className="h-11 w-11 rounded-2xl object-cover shadow-blueglow"/>
+
           <span className="leading-tight">
             <span className="block text-sm font-black text-white">Vicente Balmaceda</span>
             <span className="block text-xs font-semibold text-sky-100/70">HR-Tech MBA</span>
